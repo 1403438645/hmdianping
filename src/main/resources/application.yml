@@ -1,0 +1,95 @@
+server:
+  port: 8081
+spring:
+#  kafka:
+#    bootstrap-servers: 192.168.31.143:9092
+#    producer:
+#      retries: 3 #设置大于0 的值，则客户端会将发送失败的记录重新发送
+#      batch-size: 16384
+#      buffer-memory: 33554432
+#      acks: 1
+#        # 指定消息key和消息体的编解码方式
+#        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#        value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#
+#
+#    consumer:
+#      group-id: default-group
+#      enable-auto-commit: false
+#      #新加入消费者组，从头开始读取信息
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      max-poll-records: 500
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: '*'
+#
+#    listener:
+#      ack-mode: manual_immediate
+#    # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
+#    # RECORD
+#    # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后提交
+#    # BATCH
+#    # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，距离上次提交时间大于TIME时提交
+#    # TIME
+#    # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，被处理record数量大于等于COUNT时提交
+#    # COUNT
+#    # TIME | COUNT　有一个条件满足时提交
+#    # COUNT_TIME
+#    # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后, 手动调用Acknowledgment.acknowledge()后提交
+#    # MANUAL
+#    # 手动调用Acknowledgment.acknowledge()后立即提交，一般使用这种
+#    # MANUAL_IMMEDIATE
+  application:
+    name: dpProject
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC
+    username: root
+    password: cwq
+#    主从
+#  redis:
+#    sentinel:
+#      master: mymaster
+#      nodes:
+#        - 192.168.31.143:27001
+#        - 192.168.31.143:27002
+#        - 192.168.31.143:27003
+#  集群
+#  redis:
+#    cluster:
+#      nodes:
+#        - 192.168.31.143:7004
+#        - 192.168.31.143:7005
+#        - 192.168.31.143:7006
+#        - 192.168.31.143:8001
+#        - 192.168.31.143:8002
+#        - 192.168.31.143:8003
+  redis:
+    host: 192.168.31.143
+    port: 6379
+    password: 123321
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
+    timeout: 5000
+
+  jackson:
+    default-property-inclusion: non_null #json处理时忽略非空字符串
+mybatis-plus:
+  type-aliases-package: com.athdu.travel.dianpinproject.entity
+
+logging:
+  level:
+    com.athdu.travel.dianpingproject: debug
+  pattern:
+    dateformat: mm:ss.SSS
+    
+#canal:
+#  destination: hangdian # canal的集群名字，要与安装canal时设置的名称一致
+#  server: 192.168.31.143:11111 # canal服务地址
